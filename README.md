@@ -1,0 +1,1 @@
+# Index-coverage-lookup-tool-for-SEDOL-Bloomberg-mapping
