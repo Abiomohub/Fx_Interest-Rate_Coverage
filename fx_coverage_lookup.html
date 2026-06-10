@@ -932,7 +932,7 @@ document.addEventListener('DOMContentLoaded',function(){
       readF(f,function(rows,err){
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
 
-if(false){
+    {
     document.getElementById('bst').textContent='Processing data...';
 
     // Force processing without infinite loop
@@ -965,13 +965,18 @@ if(false){
     container.appendChild(table);
     document.body.appendChild(container);
 
-    document.getElementById('bst').textContent = "Done";
+  
+   document.getElementById('bst').textContent = "Done";
 
     } catch(e) {
-    console.error(e);
-    document.getElementById('bst').textContent = "Error loading data";
-   }
+        console.error(e);
+        document.getElementById('bst').textContent = "Error loading data";
+    }
 
+}
+}, 100);
+
+   
 <script>
 // Force page to stop getting stuck on "Loading..."
 window.addEventListener("load", function() {
