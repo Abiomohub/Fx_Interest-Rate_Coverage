@@ -938,23 +938,39 @@ if(true){
     // Force processing without infinite loop
 
     setTimeout(function(){
-        try {
-           renderTable(rows.slice(0, 500));
-        } catch(e) {
-            console.error(e);
-            document.getElementById('bst').textContent = "Error loading data";
-        }
-    }, 50);
+      try {
 
-    return;
-}
+    document.getElementById('bst').textContent = "Rendering data...";
 
+    const container = document.createElement("div");
+    const table = document.createElement("table");
 
-      });
-      this.value='';
+    table.style.borderCollapse = "collapse";
+    table.style.width = "100%";
+
+    rows.slice(0, 200).forEach(row => {
+        const tr = document.createElement("tr");
+
+        Object.values(row).forEach(val => {
+            const td = document.createElement("td");
+            td.textContent = val;
+            td.style.border = "1px solid #ccc";
+            td.style.padding = "4px";
+            tr.appendChild(td);
+        });
+
+        table.appendChild(tr);
     });
-  }
-});
+
+    container.appendChild(table);
+    document.body.appendChild(container);
+
+    document.getElementById('bst').textContent = "Done";
+
+    } catch(e) {
+    console.error(e);
+    document.getElementById('bst').textContent = "Error loading data";
+   }
 
 <script>
 // Force page to stop getting stuck on "Loading..."
