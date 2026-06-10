@@ -931,13 +931,32 @@ document.addEventListener('DOMContentLoaded',function(){
       document.getElementById('bst').textContent='Reading: '+f.name;
       readF(f,function(rows,err){
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
-        if(!SD){document.getElementById('bst').textContent='Still loading data, please wait...';setTimeout(function(){procBulkChunked(rows);},1000);return;}
-        procBulkChunked(rows);
+if(!SD){
+    document.getElementById('bst').textContent='Still loading data, please wait...';
+
+    setTimeout(function(){
+        procBulkChunked(rows.slice(0, 1500));
+    }, 100);
+
+    return;
+
       });
       this.value='';
     });
   }
 });
+
+<script>
+// Force page to stop getting stuck on "Loading..."
+window.addEventListener("load", function() {
+    console.log("Page loaded");
+
+    setTimeout(function() {
+        document.body.innerHTML = document.body.innerHTML.replace(/Loading\.\.\./g, "");
+        console.log("Loading removed");
+    }, 3000);
+});
 </script>
+  
 </body>
 </html>
