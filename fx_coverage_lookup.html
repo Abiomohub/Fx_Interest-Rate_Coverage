@@ -931,7 +931,8 @@ document.addEventListener('DOMContentLoaded',function(){
       document.getElementById('bst').textContent='Reading: '+f.name;
       readF(f,function(rows,err){
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
-        if(!SD){document.getElementById('bst').textContent='Still loading data, please wait...';setTimeout(function(){procBulkChunked(rows);},1000);return;}
+       if(!SD){setTimeout(function(){procBulkChunked(rows);},1000);return;}
+       ``
         procBulkChunked(rows);
       });
       this.value='';
