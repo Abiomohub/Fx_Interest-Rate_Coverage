@@ -522,7 +522,7 @@ function procSingleRow(row,BASE){
 }
 
 function procBulk(rows){
-  if(!SD){document.getElementById('bst').textContent='Still loading, please wait...';setTimeout(()=>procBulk(rows),500);return;}
+  if(!SD){setTimeout(()=>procBulk(rows),500);return;}
 
   // Get selected base currency — simple and direct
   const BASE=document.getElementById('base-ccy-sel').value||'USD';
