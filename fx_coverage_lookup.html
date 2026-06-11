@@ -928,7 +928,7 @@ document.addEventListener('DOMContentLoaded',function(){
     newFi.addEventListener('change',function(){
       var f=this.files[0];
       if(!f)return;
-      document.getElementById('bst').textContent='Reading: '+f.name;
+   
       readF(f,function(rows,err){
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
        if(!SD){setTimeout(function(){procBulkChunked(rows);},1000);return;}
@@ -937,8 +937,6 @@ document.addEventListener('DOMContentLoaded',function(){
       });
       this.value='';
     });
-  }
-});
 window.addEventListener('load', function(){
 
   const waitForData = setInterval(() => {
@@ -962,22 +960,6 @@ window.addEventListener('load', function(){
   }, 300);
 
 });
-
-``
- window.addEventListener('load', function(){
-
-  const finalCheck = setInterval(() => {
-    if (typeof SD !== 'undefined' && SD && SD.length > 0) {
-
-      document.getElementById('bst').textContent =
-        SD.length.toLocaleString() + ' RECORDS · ' +
-        SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
-        SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
-        SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
-
-      clearInterval(finalCheck);
-    }
-  }, 300);
 
 }); 
 </script>
