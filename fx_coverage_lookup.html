@@ -930,8 +930,9 @@ document.addEventListener('DOMContentLoaded',function(){
       if(!f)return;
       document.getElementById('bst').textContent='Reading: '+f.name;
       readF(f,function(rows,err){
+        window.rows = rows;
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
-
+   
     {
     document.getElementById('bst').textContent='Processing data...';
 
@@ -978,15 +979,68 @@ document.addEventListener('DOMContentLoaded',function(){
 
    
 <script>
-// Force page to stop getting stuck on "Loading..."
 window.addEventListener("load", function() {
-    console.log("Page loaded");
 
     setTimeout(function() {
-        document.body.innerHTML = document.body.innerHTML.replace(/Loading\.\.\./g, "");
-        console.log("Loading removed");
-    }, 3000);
+
+        const bst = document.getElementById("bst");
+        if (!bst) return;
+
+        bst.innerHTML = "<p>Rendering data...</p>";
+
+        try {
+
+            if (typeof rows !== "undefined" && rows.length > 0) {
+
+                const table = document.createElement("table");
+                table.style.borderCollapse = "collapse";
+                table.style.width = "100%";
+
+                // headers
+                const headerRow = document.createElement("tr");
+
+                Object.keys(rows[0]).forEach(key => {
+                    const th = document.createElement("th");
+                    th.textContent = key;
+                    th.style.border = "1px solid #ccc";
+                    th.style.padding = "6px";
+                    th.style.background = "#eee";
+                    headerRow.appendChild(th);
+                });
+
+                table.appendChild(headerRow);
+
+                // rows
+                rows.slice(0, 200).forEach(row => {
+                    const tr = document.createElement("tr");
+
+                    Object.values(row).forEach(val => {
+                        const td = document.createElement("td");
+                        td.textContent = val;
+                        td.style.border = "1px solid #ccc";
+                        td.style.padding = "4px";
+                        tr.appendChild(td);
+                    });
+
+                    table.appendChild(tr);
+                });
+
+                bst.innerHTML = "";
+                bst.appendChild(table);
+
+            } else {
+                bst.innerHTML = "<p>No data loaded</p>";
+            }
+
+        } catch (e) {
+            console.error(e);
+            bst.innerHTML = "<p>Error rendering data</p>";
+        }
+
+    }, 1000);
+
 });
+``
 </script>
   
 </body>
