@@ -931,6 +931,7 @@ document.addEventListener('DOMContentLoaded',function(){
       document.getElementById('bst').textContent='Reading: '+f.name;
       readF(f,function(rows,err){
         window.rows = rows;
+        alert("DATA LOADED");
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
    
     {
@@ -981,6 +982,6 @@ output.appendChild(container);
 });
 ``
 </script>
-  
+<input type="file" id="fileInput">
 </body>
 </html>
