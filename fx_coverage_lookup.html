@@ -939,7 +939,16 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 });
-  document.getElementById('bst').textContent = '';
+setTimeout(() => {
+  if(!SD || !SD.length) return;
+  
+  document.getElementById('bst').textContent =
+    SD.length.toLocaleString() + ' RECORDS · ' +
+    SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
+    SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
+    SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
+}, 1500);
+``
   
 </script>
 </body>
