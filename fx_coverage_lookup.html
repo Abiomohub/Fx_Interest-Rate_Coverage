@@ -964,7 +964,11 @@ document.addEventListener('DOMContentLoaded',function(){
     });
 
     container.appendChild(table);
-    document.body.appendChild(container);
+   
+const output = document.getElementById('bst');
+output.innerHTML = "";
+output.appendChild(container);
+
 
   
    document.getElementById('bst').textContent = "Done";
@@ -974,68 +978,6 @@ document.addEventListener('DOMContentLoaded',function(){
         document.getElementById('bst').textContent = "Error loading data";
     }
 
-}
-}, 100);
-
-   
-<script>
-window.addEventListener("load", function() {
-
-    setTimeout(function() {
-
-        const bst = document.getElementById("bst");
-        if (!bst) return;
-
-        bst.innerHTML = "<p>Rendering data...</p>";
-
-        try {
-
-            if (typeof rows !== "undefined" && rows.length > 0) {
-
-                const table = document.createElement("table");
-                table.style.borderCollapse = "collapse";
-                table.style.width = "100%";
-
-                // headers
-                const headerRow = document.createElement("tr");
-
-                Object.keys(rows[0]).forEach(key => {
-                    const th = document.createElement("th");
-                    th.textContent = key;
-                    th.style.border = "1px solid #ccc";
-                    th.style.padding = "6px";
-                    th.style.background = "#eee";
-                    headerRow.appendChild(th);
-                });
-
-                table.appendChild(headerRow);
-
-                // rows
-                rows.slice(0, 200).forEach(row => {
-                    const tr = document.createElement("tr");
-
-                    Object.values(row).forEach(val => {
-                        const td = document.createElement("td");
-                        td.textContent = val;
-                        td.style.border = "1px solid #ccc";
-                        td.style.padding = "4px";
-                        tr.appendChild(td);
-                    });
-
-                    table.appendChild(tr);
-                });
-
-                bst.innerHTML = "";
-                bst.appendChild(table);
-
-            } else {
-                bst.innerHTML = "<p>No data loaded</p>";
-            }
-
-        } catch (e) {
-            console.error(e);
-            bst.innerHTML = "<p>Error rendering data</p>";
-        }
 
     }, 1000);
 
