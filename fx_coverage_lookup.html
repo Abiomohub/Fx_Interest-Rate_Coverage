@@ -449,7 +449,7 @@ function doSearch(){
   const q=document.getElementById('si').value.trim();
   const cEl=document.getElementById('sc'),rEl=document.getElementById('res');
   const pool=getPool();
-  if(!SD){rEl.innerHTML='<div class="es">Loading...<small>Please wait</small></div>';return;}
+  if(!SD){rEl.innerHTML='';return;}
   if(q.length<2&&fSrc==='ALL'&&!fType&&!fRate&&!fCcy&&!fTenor){
     cEl.textContent='';
     rEl.innerHTML='<div class="es">Start typing to search '+D.length.toLocaleString()+' records<small>Try: EUR/USD · LIBOR · SOFR · GBP spot · 3M forward</small></div>';
