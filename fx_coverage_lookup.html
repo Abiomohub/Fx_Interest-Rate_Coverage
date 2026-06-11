@@ -939,18 +939,30 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 });
-const checkDataReady = setInterval(() => {
-  if (typeof SD !== 'undefined' && SD && SD.length > 0) {
+window.addEventListener('load', function(){
 
-    document.getElementById('bst').textContent =
-      SD.length.toLocaleString() + ' RECORDS · ' +
-      SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
-      SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
-      SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
+  const waitForData = setInterval(() => {
 
-    clearInterval(checkDataReady); // 
-  }
-}, 300);
+    if (typeof SD !== 'undefined' && SD && SD.length > 0) {
+
+      const total = SD.length;
+      const spot = SD.filter(x => x.T === 'SPOT RATE').length;
+      const forward = SD.filter(x => x.T === 'FORWARD RATE').length;
+      const ir = SD.filter(x => x.CAT === 'INTEREST RATE').length;
+
+      document.getElementById('bst').textContent =
+        total.toLocaleString() + ' RECORDS · ' +
+        spot.toLocaleString() + ' SPOT · ' +
+        forward.toLocaleString() + ' FORWARD · ' +
+        ir.toLocaleString() + ' INTEREST RATES';
+
+      clearInterval(waitForData);
+    }
+
+  }, 300);
+
+});
+
 ``
  window.addEventListener('load', function(){
 
