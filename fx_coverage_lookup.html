@@ -930,57 +930,14 @@ document.addEventListener('DOMContentLoaded',function(){
       if(!f)return;
       document.getElementById('bst').textContent='Reading: '+f.name;
       readF(f,function(rows,err){
-        window.rows = rows;
-        alert("DATA LOADED");
         if(err||!rows){document.getElementById('bst').textContent=err?err.message:'Error reading file';return;}
-   
-    {
-    document.getElementById('bst').textContent='Processing data...';
-
-    // Force processing without infinite loop
-
-    setTimeout(function(){
-      try {
-
-    document.getElementById('bst').textContent = "";
-
-    const container = document.createElement("div");
-    const table = document.createElement("table");
-
-    table.style.borderCollapse = "collapse";
-    table.style.width = "100%";
-
-    rows.slice(0, 200).forEach(row => {
-        const tr = document.createElement("tr");
-
-        Object.values(row).forEach(val => {
-            const td = document.createElement("td");
-            td.textContent = val;
-            td.style.border = "1px solid #ccc";
-            td.style.padding = "4px";
-            tr.appendChild(td);
-        });
-
-        table.appendChild(tr);
+        if(!SD){document.getElementById('bst').textContent='Still loading data, please wait...';setTimeout(function(){procBulkChunked(rows);},1000);return;}
+        procBulkChunked(rows);
+      });
+      this.value='';
     });
-
-    container.appendChild(table);
-   
-const output = document.getElementById('bst');
-output.innerHTML = "";
-output.appendChild(container);
-
-
-    } catch(e) {
-        console.error(e);
-        document.getElementById('bst').textContent = "Error loading data";
-    }
-
-
-    }, 1000);
-
+  }
 });
-``
 </script>
 </body>
 </html>
