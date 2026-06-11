@@ -939,15 +939,18 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 });
-setTimeout(() => {
-  if(!SD || !SD.length) return;
-  
-  document.getElementById('bst').textContent =
-    SD.length.toLocaleString() + ' RECORDS · ' +
-    SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
-    SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
-    SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
-}, 1500);
+const checkDataReady = setInterval(() => {
+  if (typeof SD !== 'undefined' && SD && SD.length > 0) {
+
+    document.getElementById('bst').textContent =
+      SD.length.toLocaleString() + ' RECORDS · ' +
+      SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
+      SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
+      SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
+
+    clearInterval(checkDataReady); // ✅ stop checking once done
+  }
+}, 300);
 ``
   
 </script>
