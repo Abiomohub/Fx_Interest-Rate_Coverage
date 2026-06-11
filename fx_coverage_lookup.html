@@ -948,11 +948,26 @@ const checkDataReady = setInterval(() => {
       SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
       SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
 
-    clearInterval(checkDataReady); // ✅ stop checking once done
+    clearInterval(checkDataReady); // 
   }
 }, 300);
 ``
-  
+ window.addEventListener('load', function(){
+
+  const finalCheck = setInterval(() => {
+    if (typeof SD !== 'undefined' && SD && SD.length > 0) {
+
+      document.getElementById('bst').textContent =
+        SD.length.toLocaleString() + ' RECORDS · ' +
+        SD.filter(x => x.T === 'SPOT RATE').length + ' SPOT · ' +
+        SD.filter(x => x.T === 'FORWARD RATE').length + ' FORWARD · ' +
+        SD.filter(x => x.CAT === 'INTEREST RATE').length + ' INTEREST RATES';
+
+      clearInterval(finalCheck);
+    }
+  }, 300);
+
+}); 
 </script>
 </body>
 </html>
